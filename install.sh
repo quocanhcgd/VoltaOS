@@ -53,6 +53,7 @@ pushd $VOLTA_HTTPD_BASE_DIR
     cp .env.example .env
 
     php artisan key:generate
+    php artisan passport:key
     php artisan migrate
 popd
 
@@ -60,7 +61,7 @@ usermod -aG www-data $VOLTA_OS_USER
 chown -R www-data:www-data "$VOLTA_HTTPD_BASE_DIR"
 
 # Activate Volta on Nginx
-cp -v -r --preserve=mode,timestamps /filesystem/root/. /
+cp -v -r --preserve=mode,timestamps ./filesystem/root/. /
 
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/volta /etc/nginx/sites-enabled/
