@@ -65,7 +65,11 @@ chown -R www-data:www-data "$VOLTA_HTTPD_BASE_DIR"
 # Activate Volta on Nginx
 cp -v -r --preserve=mode,timestamps ./filesystem/root/. /
 
-rm /etc/nginx/sites-enabled/default
+NGINX_DEFAULT_CONFIG="/etc/nginx/sites-enabled/default"
+if [ -f $NGINX_DEFAULT_CONFIG ]; then
+    rm $NGINX_DEFAULT_CONFIG
+fi
+
 ln -s /etc/nginx/sites-available/volta /etc/nginx/sites-enabled/
 
 # Cleanup
