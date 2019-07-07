@@ -70,7 +70,7 @@ if [ -f $NGINX_DEFAULT_CONFIG ]; then
     rm $NGINX_DEFAULT_CONFIG
 fi
 
-ln -s /etc/nginx/sites-available/volta /etc/nginx/sites-enabled/
+ln -sf /etc/nginx/sites-available/volta /etc/nginx/sites-enabled/
 
 # Cleanup
 apt-get clean
