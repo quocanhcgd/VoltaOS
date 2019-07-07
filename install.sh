@@ -58,3 +58,11 @@ popd
 
 usermod -aG www-data $VOLTA_OS_USER
 chown -R www-data:www-data "$VOLTA_HTTPD_BASE_DIR"
+
+# Activate Volta on Nginx
+rm /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/volta /etc/nginx/sites-enabled/
+
+# Cleanup
+apt-get clean
+apt-get autoremove -y
