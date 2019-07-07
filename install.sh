@@ -16,11 +16,11 @@
 set -x
 set -e
 
-VOLTAPI_OS_USER=pi
-VOLTAPI_HTTPD_BASE_DIR=/var/www/volta
-VOLTAPI_HTTPD_DOCUMENT_ROOT=/var/www/volta/public
-VOLTAPI_VOLTA_REPO=https://github.com/azuyalabs/Volta.git
-VOLTAPI_VOLTA_REPO_BRANCH=develop
+VOLTA_OS_USER=root # This should be a different user
+VOLTA_HTTPD_BASE_DIR=/var/www/volta
+VOLTA_HTTPD_DOCUMENT_ROOT=/var/www/volta/public
+VOLTA_APP_REPO=https://github.com/azuyalabs/Volta.git
+VOLTA_APP_REPO_BRANCH=develop
 
 export LC_ALL=C
 
@@ -30,8 +30,8 @@ apt-get -y upgrade
 apt install -y openssh-server net-tools nginx git apt-transport-https lsb-release zip curl dirmngr sudo
 
 # Configuration
-usermod -aG www-data $VOLTAPI_OS_USER
-usermod -aG sudo $VOLTAPI_OS_USER
+usermod -aG www-data $VOLTA_OS_USER
+usermod -aG sudo $VOLTA_OS_USER
 
 # Install PHP (and related)
 wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
