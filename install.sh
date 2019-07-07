@@ -40,3 +40,10 @@ apt-get update
 apt-get install -y php7.3-cli php7.3-fpm php7.3-intl php7.3-json php7.3-mbstring php7.3-xml php7.3-curl php7.3-bcmath php7.3-zip php7.3-sqlite
 
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install and configure Volta
+echo "--- Installing Volta"
+git clone -u pi -b $VOLTA_APP_REPO_BRANCH $VOLTA_APP_REPO $VOLTA_HTTPD_BASE_DIR
+
+find "$VOLTA_HTTPD_BASE_DIR" -type d -exec chmod 2775 {} \;
+find "$VOLTA_HTTPD_BASE_DIR" -type f -exec chmod 0664 {} \;
