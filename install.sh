@@ -47,3 +47,14 @@ git clone -u pi -b $VOLTA_APP_REPO_BRANCH $VOLTA_APP_REPO $VOLTA_HTTPD_BASE_DIR
 
 find "$VOLTA_HTTPD_BASE_DIR" -type d -exec chmod 2775 {} \;
 find "$VOLTA_HTTPD_BASE_DIR" -type f -exec chmod 0664 {} \;
+
+pushd $VOLTA_HTTPD_BASE_DIR
+    composer install
+    cp .env.example .env
+
+    php artisan key:generate
+    php artisan migrate
+popd
+
+usermod -aG www-data $VOLTA_OS_USER
+chown -R www-data:www-data "$VOLTA_HTTPD_BASE_DIR"
