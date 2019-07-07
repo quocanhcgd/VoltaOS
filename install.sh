@@ -16,7 +16,8 @@
 set -x
 set -e
 
-VOLTA_OS_USER=root # This should be a different user
+VOLTA_OS_USER=volta
+VOLTA_OS_USER_PASSWORD=volta
 VOLTA_HTTPD_BASE_DIR=/var/www/volta
 VOLTA_HTTPD_DOCUMENT_ROOT=/var/www/volta/public
 VOLTA_APP_REPO=https://github.com/azuyalabs/Volta.git
@@ -30,6 +31,7 @@ apt-get -y upgrade
 apt install -y openssh-server net-tools nginx git apt-transport-https lsb-release zip curl dirmngr sudo
 
 # Configuration
+useradd -m -p $(openssl passwd -1 ${PASSWORD}) -s /bin/bash -G sudo ${VOLTA_OS_USER}
 usermod -aG www-data $VOLTA_OS_USER
 usermod -aG sudo $VOLTA_OS_USER
 
@@ -43,7 +45,7 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 
 # Install and configure Volta
 echo "--- Installing Volta"
-git clone -u pi -b $VOLTA_APP_REPO_BRANCH $VOLTA_APP_REPO $VOLTA_HTTPD_BASE_DIR
+git clone -b $VOLTA_APP_REPO_BRANCH $VOLTA_APP_REPO $VOLTA_HTTPD_BASE_DIR
 
 find "$VOLTA_HTTPD_BASE_DIR" -type d -exec chmod 2775 {} \;
 find "$VOLTA_HTTPD_BASE_DIR" -type f -exec chmod 0664 {} \;
